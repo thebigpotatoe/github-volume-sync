@@ -38,6 +38,25 @@ for folder in $DATA_LOCATION/*; do
                 else
                     printf "    - Successfully pulled new commits from remote\n" "$folder"
                 fi
+            elif [ $(git status -uno | grep diverged | wc -l) -gt 0 ]; then
+                # Debug
+                printf "%s is diverged, discarding local commits and pulling latest\n" "$folder"
+
+                # Fetch Remote
+                git fetch >/dev/null
+                if [ ! $? -eq 0 ]; then
+                    printf "    - Failed to fetch remote\n"
+                    continue
+                fi
+
+                # Pull from remote
+                git reset --head origin/main >/dev/null
+                if [ ! $? -eq 0 ]; then
+                    printf "    - Failed to pull commits from remote\n"
+                    continue
+                else
+                    printf "    - Successfully pulled new commits from remote\n" "$folder"
+                fi
             fi
         else
             printf "Failure - %s does not have a remote \n" "$folder"
@@ -48,3 +67,6 @@ for folder in $DATA_LOCATION/*; do
         cd ../..
     fi
 done
+
+# Set all file permissions to rwx
+chmod -R 647 $DATA_LOCATION

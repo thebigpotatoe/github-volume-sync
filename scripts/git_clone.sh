@@ -44,5 +44,8 @@ else
     # exit 1
 fi
 
+# Set all of the files to rwx
+chmod -R 647 $DATA_LOCATION
+
 # Change back to root 
 cd /
