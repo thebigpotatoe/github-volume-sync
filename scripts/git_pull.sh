@@ -69,4 +69,4 @@ for folder in $DATA_LOCATION/*; do
 done
 
 # Set all file permissions to rwx
-chmod -R 647 $DATA_LOCATION
+chmod -R 777 $DATA_LOCATION
