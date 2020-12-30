@@ -11,7 +11,7 @@ fi
 
 # Create data dir if it does not exist
 if [ ! -d "$DATA_LOCATION" ]; then
-    mkdir $DATA_LOCATION
+    mkdir -p $DATA_LOCATION
     if [ $? -ne 0 ]; then
         printf "    - Failure - Could not create specified dir %s\n" "$DATA_LOCATION"
         exit 1
